@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Observable.just(1, 2, 3, 4, 5, 6)
-                .flatMap(n -> Observable.just(n * 10).delay(1, TimeUnit.SECONDS))
+                .concatMap(n -> Observable.just(n * 10).delay(1, TimeUnit.SECONDS))
                 .subscribe(new Observer<Integer>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
