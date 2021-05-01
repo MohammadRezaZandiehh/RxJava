@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
@@ -22,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Observable.just(1, 2, 3, 4, 5, 6)
+        getMyObservable()
                 .filter(n -> n > 2)
                 .map(n -> n * 10)
                 .concatMap(n -> Observable.just(n * 10).delay(1, TimeUnit.SECONDS))
@@ -58,5 +60,28 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         disposable.dispose();
+    }
+
+    private Observable<Integer> getMyObservable() {
+        return Observable.create(emitter -> {
+            try {
+                for (int i = 0; i < 20; i++) {
+                    if (!emitter.isDisposed()) {
+                        emitter.onNext(i);
+                    }
+                }
+
+                if (!emitter.isDisposed()) {
+                    emitter.onComplete();
+                }
+
+            } catch (Exception e) {
+                if (!emitter.isDisposed()) {
+                    emitter.onError(e);
+                }
+            }
+
+
+        });
     }
 }
