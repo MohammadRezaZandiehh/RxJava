@@ -5,6 +5,8 @@ import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.concurrent.TimeUnit;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
@@ -21,8 +23,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Observable.just(1, 2, 3, 4, 5, 6)
-                .map(n -> "Number" + n)
-                .subscribe(new Observer<String>() {
+                .flatMap(n -> Observable.just(n * 10).delay(1, TimeUnit.SECONDS))
+                .subscribe(new Observer<Integer>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
                         // vaghti movafagh shodim moshtarak beshim rooye obserable  zade mishe . */
@@ -30,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onNext(@NonNull String s) {
+                    public void onNext(@NonNull Integer integer) {
                         //vaghti heyvani dide shod esme heyvan seda zade mishe .
                         Log.d(TAG, "onNext: ");
                     }
