@@ -22,9 +22,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Observable.just(1, 2, 3, 4, 5, 6)
+        Observable.interval(1, 1, TimeUnit.SECONDS)
                 .switchMap(n -> Observable.just(n * 10).delay(1, TimeUnit.SECONDS))
-                .subscribe(new Observer<Integer>() {
+                .subscribe(new Observer<Long>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
                         // vaghti movafagh shodim moshtarak beshim rooye obserable  zade mishe . */
@@ -32,9 +32,9 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onNext(@NonNull Integer integer) {
+                    public void onNext(Long s) {
                         //vaghti heyvani dide shod esme heyvan seda zade mishe .
-                        Log.d(TAG, "onNext: ");
+                        Log.d(TAG, "onNext: " + s.toString());
                     }
 
 
