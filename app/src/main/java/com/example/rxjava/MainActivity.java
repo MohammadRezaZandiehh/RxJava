@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Observable.interval(1, 1, TimeUnit.SECONDS)
+        Observable.timer( 1, TimeUnit.SECONDS)
                 .switchMap(n -> Observable.just(n * 10).delay(1, TimeUnit.SECONDS))
                 .subscribe(new Observer<Long>() {
                     @Override
