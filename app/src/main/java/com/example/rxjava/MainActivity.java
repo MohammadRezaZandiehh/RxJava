@@ -14,24 +14,27 @@ public class MainActivity extends AppCompatActivity {
 
     private Disposable disposable;
     private static final String TAG = "MainActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Observable.just("Tiger", "Elephent", "Lion", "Bear")
-                .subscribe(new Observer<String>() {
+        Observable.just(1, 2, 3, 4, 5, 6)
+                .filter(n -> n > 2)
+                .subscribe(new Observer<Integer>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
-                        //vaghti movafagh shodim moshtarak beshim rooye obserable  zade mishe .
+                        // vaghti movafagh shodim moshtarak beshim rooye obserable  zade mishe . */
                         disposable = d;
                     }
 
                     @Override
-                    public void onNext(@NonNull String s) {
+                    public void onNext(@NonNull Integer integer) {
                         //vaghti heyvani dide shod esme heyvan seda zade mishe .
                         Log.d(TAG, "onNext: ");
                     }
+
 
                     @Override
                     public void onError(@NonNull Throwable e) {
