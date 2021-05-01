@@ -21,8 +21,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Observable.just(1, 2, 3, 4, 5, 6)
-                .takeLast(3)
-                .subscribe(new Observer<Integer>() {
+                .map(n -> "Number" + n)
+                .subscribe(new Observer<String>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
                         // vaghti movafagh shodim moshtarak beshim rooye obserable  zade mishe . */
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onNext(@NonNull Integer integer) {
+                    public void onNext(@NonNull String s) {
                         //vaghti heyvani dide shod esme heyvan seda zade mishe .
                         Log.d(TAG, "onNext: ");
                     }
